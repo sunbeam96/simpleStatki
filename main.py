@@ -1,4 +1,6 @@
 import pygame
+from ship import Ship
+from board import Board
 
 if __name__ == '__main__':
 
@@ -11,6 +13,8 @@ if __name__ == '__main__':
         for event in pygame.event.get():  
             if event.type == pygame.QUIT:  
                 isRunning = False  
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
         print("Hello world")
 
     pygame.quit()
