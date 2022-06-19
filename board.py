@@ -25,22 +25,34 @@ class Board:
     def isSea(self, x, y):
         return self.board[y][x] == 's'
 
+    def __placeShipWithParameters(self, startx, starty, direction, numOfMasts):
+        currentx = startx
+        currenty = starty
+        for mast in range(numOfMasts):
+            self.board[currenty][currentx] = 'b'
+            if direction == 'north':
+                currenty = currenty+1
+            if direction == 'south':
+                currenty = currenty-1
+            if direction == 'east':
+                currentx = currentx-1
+            if direction == 'west':
+                currentx = currentx+1
+
     def __isPlacingPossible(self, x, y):
         if not self.isSea(x, y):
             return False
         else:
-            if not (x-1<0):
-                if not self.isSea(x-1, y):
-                    return False
-            if not (x+1>9):
-                if not self.isSea(x+1, y):
-                    return False
-            if not (y-1<0):
-                if not self.isSea(x, y-1):
-                    return False
-            if not (y+1>9):
-                if not self.isSea(x, y+1):
-                    return False
+            if (x-1<0) or (x+1>9) or (y-1<0) or (y+1>9):
+                return False
+            if not self.isSea(x-1, y):
+                return False
+            if not self.isSea(x+1, y):
+                return False
+            if not self.isSea(x, y-1):
+                return False
+            if not self.isSea(x, y+1):
+                return False
             if not self.isSea(x+1, y+1):
                 return False
             if not self.isSea(x+1, y-1):
@@ -82,11 +94,11 @@ class Board:
         while not self.__isPlacingPossible(startx, starty):
             startx = randint(0, 9)
             starty = randint(0, 9)
-
         directions = ['north', 'south', 'east', 'west']
         direction = choice(directions)
         while not self.__canBePlacedInDirection(startx, starty, direction, numOfMasts):
             direction = choice(directions)
+        self.__placeShipWithParameters(startx, starty, direction, numOfMasts)
 
     def placeShipsRandomly(self):
         singleMastShipsLeft = 4
