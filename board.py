@@ -9,6 +9,7 @@ from random import choice
 class Board:
     def __init__(self, boardSize = 10):
         self.board = self.__initializeBoardWithSea(boardSize)
+        self.placingProcedureRestartNeeded = False
 
     def __initializeBoardWithSea(self, boardSize):
         board = []
@@ -71,23 +72,31 @@ class Board:
         directiony = y
         if direction == 'north':
             for iter in range(length):
+                if (directiony+1 > 9):
+                    return False
                 directiony = directiony+1
-                if not self.isSea(x, directiony):
+                if not self.__isPlacingPossible(x, directiony):
                     return False
         if direction == 'south':
             for iter in range(length):
+                if (directiony-1 < 0):
+                    return False
                 directiony = directiony-1
-                if not self.isSea(x, directiony):
+                if not self.__isPlacingPossible(x, directiony):
                     return False
         if direction == 'east':
             for iter in range(length):
+                if (directionx-1 < 0):
+                    return False
                 directionx = directionx-1
-                if not self.isSea(directionx, y):
+                if not self.__isPlacingPossible(directionx, y):
                     return False
         if direction == 'west':
             for iter in range(length):
+                if (directionx+1 > 9):
+                    return False
                 directionx = directionx+1
-                if not self.isSea(directionx, y):
+                if not self.__isPlacingPossible(directionx, y):
                     return False
         return True
 
@@ -99,8 +108,18 @@ class Board:
             starty = randint(0, 9)
         directions = ['north', 'south', 'east', 'west']
         direction = choice(directions)
+        directionFailCounter = 0
         while not self.__canBePlacedInDirection(startx, starty, direction, numOfMasts):
             direction = choice(directions)
+            directionFailCounter = directionFailCounter + 1
+            if (directionFailCounter % 4) == 0:
+                while not self.__isPlacingPossible(startx, starty):
+                    startx = randint(0, 9)
+                    starty = randint(0, 9)
+            if (directionFailCounter > 50):
+                print("Failing ship placing")
+                self.placingProcedureRestartNeeded = True
+                return
         self.__placeShipWithParameters(startx, starty, direction, numOfMasts)
 
     def placeShipsRandomly(self):
@@ -110,6 +129,11 @@ class Board:
         quadrupleMastShipsLeft = 1
 
         for iter in range(10):
+            if self.placingProcedureRestartNeeded:
+                self.board = self.__initializeBoardWithSea(10)
+                self.placingProcedureRestartNeeded = False
+                self.placeShipsRandomly()
+                return
             if quadrupleMastShipsLeft:
                 self.__placeShipRandomly(4)
                 quadrupleMastShipsLeft = quadrupleMastShipsLeft - 1

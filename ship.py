@@ -15,5 +15,3 @@ class Ship:
             return ydiff
 
 
-
-

@@ -6,31 +6,33 @@ if __name__ == '__main__':
 
     pygame.init()  
 
+    dmz = 20
     isRunning = True
     cellSize = 30
-    screen = pygame.display.set_mode((cellSize * 10,2 * cellSize * 10))
+    screen = pygame.display.set_mode((cellSize * 10,dmz + 2 * cellSize * 10))
     pygame.display.set_caption("simpleStatki")
     gameInstance = Game()
-    screen.fill(pygame.color.Color("black"))
-
+    screen.fill(("white"))
 
     while isRunning:
         for event in pygame.event.get():  
-            if event.type == pygame.QUIT:  
-                isRunning = False  
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
             for y in range(10):
                 for x in range(10):
                     pygame.draw.rect(screen, gameInstance.getColorForAiPosition(x, y),
                                     [x * cellSize, y * cellSize,
                                     cellSize, cellSize])
 
-                    dmz = 30
+                    offset = dmz + 10 * cellSize
                     pygame.draw.rect(screen, gameInstance.getColorForPlayerPosition(x, y),
                                     [x * cellSize,
-                                    dmz + y * cellSize,
+                                    offset + y * cellSize,
                                     cellSize, cellSize])
+                pygame.display.update()
+            if event.type == pygame.QUIT:  
+                isRunning = False  
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                clickx, clicky = pygame.mouse.get_pos()
+            screen.fill("white")
 
     pygame.quit()
     
