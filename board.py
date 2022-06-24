@@ -25,6 +25,9 @@ class Board:
     def isSea(self, x, y):
         return self.board[y][x] == 's'
 
+    def getPositionValue(self, x, y):
+        return self.board[y][x]
+
     def __placeShipWithParameters(self, startx, starty, direction, numOfMasts):
         currentx = startx
         currenty = starty
