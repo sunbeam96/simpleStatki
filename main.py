@@ -17,7 +17,7 @@ if __name__ == '__main__':
     screen.fill(("white"))
 
     while isRunning:
-        for event in pygame.event.get():  
+        for event in pygame.event.get():
             for y in range(10):
                 for x in range(10):
                     pygame.draw.rect(screen, gameInstance.getColorForAiPosition(x, y),
@@ -34,12 +34,25 @@ if __name__ == '__main__':
                 isRunning = False  
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 clickx, clicky = pygame.mouse.get_pos()
+                print('Received mouse click in pos ')
+                print(clickx)
+                print(clicky)
                 if (clickx <= cellSize * 10):
                     if (clicky <= cellSize * 10):
                         cellPosX = (math.ceil(clickx / cellSize) - 1)
+                        print('Translated x to cell ')
+                        print(cellPosX)
                         cellPosY = (math.ceil(clicky / cellSize) - 1)
+                        print('Translated y to cell ')
+                        print(cellPosY)
                         gameInstance.shootAtPos(cellPosX, cellPosY)
+                        if not gameInstance.isAnyShipFieldLeftOnAiBoard():
+                            print('Congratulations! You win!')
+                            isRunning = False
                         gameInstance.triggerEnemyMove()
+                        if not gameInstance.isAnyShipFieldLeftOnPlayerBoard():
+                            print('Enemy wins!')
+                            isRunning = False
             screen.fill("white")
 
     pygame.quit()

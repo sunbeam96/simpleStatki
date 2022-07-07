@@ -28,11 +28,20 @@ class Board:
         if (originalVal == 's'):
             self.setPositionValue(x, y, 'm')
 
+    def isPosValidToShoot(self, x, y):
+        posVal = self.getPositionValue(x, y)
+        if (posVal == 'm' or posVal == 'x'):
+            return False
+        return True
+
     def getBoard(self):
         return self.board
 
     def isSea(self, x, y):
         return self.board[y][x] == 's'
+
+    def isShip(self, x, y):
+        return self.board[y][x] == 'b'
 
     def getPositionValue(self, x, y):
         return self.board[y][x]

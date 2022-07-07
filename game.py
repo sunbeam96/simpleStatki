@@ -24,6 +24,22 @@ class Game:
         elif val == 'x':
             return pygame.color.Color("red")
 
+    def isAnyShipFieldLeftOnAiBoard(self):
+        for y in range(10):
+            for x in range(10):
+                valField = self.aiBoard.getPositionValue(x, y)
+                if (valField == 'b'):
+                    return True
+        return False
+
+    def isAnyShipFieldLeftOnPlayerBoard(self):
+        for y in range(10):
+            for x in range(10):
+                valField = self.playerBoard.getPositionValue(x, y)
+                if (valField == 'b'):
+                    return True
+        return False
+
     def __syncAiBoardWithDisplayBoard(self):
         for y in range(10):
             for x in range(10):
