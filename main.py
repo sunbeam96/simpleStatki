@@ -1,4 +1,6 @@
+# main class to display gameplay
 import pygame
+import math
 from board import Board
 from game import Game
 
@@ -34,7 +36,9 @@ if __name__ == '__main__':
                 clickx, clicky = pygame.mouse.get_pos()
                 if (clickx <= cellSize * 10):
                     if (clicky <= cellSize * 10):
-                        gameInstance.shootAtPos(clickx, clicky)
+                        cellPosX = (math.ceil(clickx / cellSize) - 1)
+                        cellPosY = (math.ceil(clicky / cellSize) - 1)
+                        gameInstance.shootAtPos(cellPosX, cellPosY)
                         gameInstance.triggerEnemyMove()
             screen.fill("white")
 

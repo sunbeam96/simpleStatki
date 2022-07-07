@@ -1,6 +1,7 @@
+# class representing game board per each player
+
 from random import randint
 from random import choice
-# class representing game board per each player
 # legend:
 # s - sea
 # b - battleship

@@ -1,4 +1,6 @@
 # class representing game logic
+
+from ai import Ai
 from board import Board
 import pygame
 
@@ -9,6 +11,7 @@ class Game:
         self.aiBoard.placeShipsRandomly()
         self.playerBoard.placeShipsRandomly()
         self.enemyDisplayBoard = Board()
+        self.ai = Ai(self.playerBoard)
 
     def __getColorForPosition(self, x, y, board):
         val = board.getPositionValue(x, y)
@@ -40,3 +43,6 @@ class Game:
     def shootAtPos(self, x, y):
         self.aiBoard.tryShootAtPos(x, y)
         self.__syncAiBoardWithDisplayBoard()
+
+    def triggerEnemyMove(self):
+        self.ai.actSingleMove()
