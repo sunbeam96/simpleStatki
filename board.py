@@ -20,6 +20,13 @@ class Board:
             board.append(row)
         return board
 
+    def tryShootAtPos(self, x, y):
+        originalVal = self.getPositionValue(x, y)
+        if (originalVal == 'b'):
+            self.setPositionValue(x, y, 'x')
+        if (originalVal == 's'):
+            self.setPositionValue(x, y, 'm')
+
     def getBoard(self):
         return self.board
 
@@ -28,6 +35,9 @@ class Board:
 
     def getPositionValue(self, x, y):
         return self.board[y][x]
+
+    def setPositionValue(self, x, y, val):
+        self.board[y][x] = val
 
     def __placeShipWithParameters(self, startx, starty, direction, numOfMasts):
         currentx = startx

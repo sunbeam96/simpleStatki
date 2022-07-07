@@ -32,6 +32,10 @@ if __name__ == '__main__':
                 isRunning = False  
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 clickx, clicky = pygame.mouse.get_pos()
+                if (clickx <= cellSize * 10):
+                    if (clicky <= cellSize * 10):
+                        gameInstance.shootAtPos(clickx, clicky)
+                        gameInstance.triggerEnemyMove()
             screen.fill("white")
 
     pygame.quit()
