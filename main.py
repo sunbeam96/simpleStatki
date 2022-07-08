@@ -44,7 +44,5 @@ if __name__ == '__main__':
                         gameInstance.triggerEnemyMove()
                         if not gameInstance.isAnyShipFieldLeftOnPlayerBoard():
                             print('Enemy wins!')
-            screen.fill("white")
-
     pygame.quit()
     
