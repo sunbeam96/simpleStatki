@@ -123,9 +123,14 @@ class Board:
     def __placeShipRandomly(self, numOfMasts):
         startx = randint(0, 9)
         starty = randint(0, 9)
+        placingFailCounter = 0
         while not self.__isPlacingPossible(startx, starty):
             startx = randint(0, 9)
             starty = randint(0, 9)
+            placingFailCounter = placingFailCounter + 1
+            if (placingFailCounter > 50):
+                self.placingProcedureRestartNeeded = True
+                return
         directions = ['north', 'south', 'east', 'west']
         direction = choice(directions)
         directionFailCounter = 0
@@ -137,7 +142,6 @@ class Board:
                     startx = randint(0, 9)
                     starty = randint(0, 9)
             if (directionFailCounter > 50):
-                print("Failing ship placing")
                 self.placingProcedureRestartNeeded = True
                 return
         self.__placeShipWithParameters(startx, starty, direction, numOfMasts)

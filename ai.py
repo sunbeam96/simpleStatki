@@ -18,7 +18,6 @@ class Ai:
     def __dispatchNextMove(self):
         nextMove = self.moveQueue.get()
         self.playerBoard.tryShootAtPos(nextMove.x, nextMove.y)
-        self.playerBoard.get
 
     def __addToQueueInDirection(self, startx, starty, direction):
         x = startx
@@ -107,7 +106,7 @@ class Ai:
             return -1, -1
         startx, starty = self.__getRandomPos()
         randomVal = self.playerBoard.getPositionValue(startx, starty)
-        while (randomVal != 's') or (randomVal != 'b'): # valid position to shoot is when it is sea field or battleship field on a board
+        while (randomVal != 's') and (randomVal != 'b'): # valid position to shoot is when it is sea field or battleship field on a board
             startx, starty = self.__getRandomPos()
             randomVal = self.playerBoard.getPositionValue(startx, starty)
         return startx, starty

@@ -20,7 +20,7 @@ class Game:
         elif val == 'b':
             return pygame.color.Color("gray")
         elif val == 'm':
-            return pygame.color.Color("lightcyan")
+            return pygame.color.Color("aqua")
         elif val == 'x':
             return pygame.color.Color("red")
 
